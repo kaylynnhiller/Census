@@ -6,9 +6,35 @@ format: html
 ```{r}
 ##My Examples with Census Data
 
+library(tidycensus)
+library(tidyverse)
+library(scales)
+options(tigris_use_cache = TRUE)
+
+NC <- get_acs(
+  state = "NC",
+  geography = "county",
+  variables = "B01001_026",
+  geometry = TRUE,
+  year = 2021
+)
+
+head(NC)
+
+
+
+NC %>%
+  ggplot(aes(fill = estimate)) + 
+  geom_sf(color = NA) + 
+  scale_fill_continuous(labels=function(x) format(x, big.mark = ",", scientific = FALSE), name = "Total Females per County")
+
+chatham %>%
+  ggplot(aes(x = estimate, y = reorder(NAME, estimate))) + 
+  geom_point()
 
 ```
 
+**Examples from Readings:**
 
 ```{r}
 ##Basic usage of tidycensus
@@ -324,6 +350,3 @@ top_move_in %>%
     tooltip = "tooltip"
   )
 ```
-
-
-
