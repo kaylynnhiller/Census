@@ -36,7 +36,11 @@ NC %>%
   labs(x = "Total Females per County", y = "County") + 
   scale_x_continuous(labels = label_comma())
 
-
+NC %>%
+  ggplot(aes(x = estimate, y = reorder(County, estimate))) + 
+  geom_col() +
+  labs(x = "Total Females per County", y = "County") + 
+  scale_x_continuous(labels = label_comma())
 ```
 
 **Examples from Readings:**
