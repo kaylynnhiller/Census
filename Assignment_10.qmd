@@ -19,6 +19,8 @@ NC <- get_acs(
   year = 2021
 )
 
+NC <- NC %>% separate(NAME, sep = " ", into = c("County"))
+
 head(NC)
 
 
@@ -28,9 +30,12 @@ NC %>%
   geom_sf(color = NA) + 
   scale_fill_continuous(labels=function(x) format(x, big.mark = ",", scientific = FALSE), name = "Total Females per County")
 
-chatham %>%
-  ggplot(aes(x = estimate, y = reorder(NAME, estimate))) + 
-  geom_point()
+NC %>%
+  ggplot(aes(x = estimate, y = reorder(County, estimate))) + 
+  geom_point() +
+  labs(x = "Total Females per County", y = "County") + 
+  scale_x_continuous(labels = label_comma())
+
 
 ```
 
