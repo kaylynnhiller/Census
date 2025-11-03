@@ -15,8 +15,6 @@ library(tidyverse)
 library(scales)
 options(tigris_use_cache = TRUE)
 
-census_api_key("0b702d86b97e9aa7cf3abb781d8b8b93e2c79825")
-
 NC <- get_acs(
   state = "NC",
   geography = "county",
@@ -39,18 +37,18 @@ NC %>%
   ggplot(aes(fill = estimate)) + 
   geom_sf(color = NA) + 
   scale_fill_continuous(labels=function(x) format(x, big.mark = ",", scientific = FALSE), name = "Total Females") +
-  labs(title = "Total Females per NC County, 2017 -2021")
+  labs(title = "Total Females per NC County, 2017 - 2021")
 
 NC %>%
   ggplot(aes(x = estimate, y = reorder(County, estimate))) + 
   geom_point(color = "steelblue") +
-  labs(title = "Total Females per NC County, 2017 -2021", x = "Total Females per County", y = "County") + 
+  labs(title = "Total Females per NC County, 2017 - 2021", x = "Total Females per County", y = "County") + 
   scale_x_continuous(labels = label_comma())
 
 NC %>%
   ggplot(aes(x = estimate, y = reorder(County, estimate))) + 
-  geom_col(fill = "steelblue") +
-  labs(title = "Total Females per NC County, 2017 -2021", x = "Total Females per County", y = "County") + 
+  geom_col(color = "white", fill = "steelblue") +
+  labs(title = "Total Females per NC County, 2017 - 2021", x = "Total Females per County", y = "County") + 
   scale_x_continuous(labels = label_comma())
 ```
 
@@ -62,8 +60,6 @@ NC %>%
 library(tidycensus)
 library(sf)
 library(tidyverse)
-
-census_api_key("0b702d86b97e9aa7cf3abb781d8b8b93e2c79825")
 
 age20 <- get_decennial(geography = "state", 
                        variables = "P13_001N", 
