@@ -23,6 +23,8 @@ NC <- get_acs(
   year = 2021
 )
 
+
+
 head(NC)
 
 NC <- NC %>% mutate(NAME = str_replace_all(NAME," County, North Carolina", ""))
