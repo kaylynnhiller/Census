@@ -25,27 +25,32 @@ NC <- get_acs(
   year = 2021
 )
 
-NC <- NC %>% separate(NAME, sep = " ", into = c("County"))
+head(NC)
+
+NC <- NC %>% mutate(NAME = str_replace_all(NAME," County, North Carolina", ""))
 
 head(NC)
 
+NC <- NC %>% rename(County = NAME)
 
+head(NC)
 
 NC %>%
   ggplot(aes(fill = estimate)) + 
   geom_sf(color = NA) + 
-  scale_fill_continuous(labels=function(x) format(x, big.mark = ",", scientific = FALSE), name = "Total Females per County")
+  scale_fill_continuous(labels=function(x) format(x, big.mark = ",", scientific = FALSE), name = "Total Females") +
+  labs(title = "Total Females per NC County, 2017 -2021")
 
 NC %>%
   ggplot(aes(x = estimate, y = reorder(County, estimate))) + 
-  geom_point() +
-  labs(x = "Total Females per County", y = "County") + 
+  geom_point(color = "steelblue") +
+  labs(title = "Total Females per NC County, 2017 -2021", x = "Total Females per County", y = "County") + 
   scale_x_continuous(labels = label_comma())
 
 NC %>%
   ggplot(aes(x = estimate, y = reorder(County, estimate))) + 
-  geom_col() +
-  labs(x = "Total Females per County", y = "County") + 
+  geom_col(fill = "steelblue") +
+  labs(title = "Total Females per NC County, 2017 -2021", x = "Total Females per County", y = "County") + 
   scale_x_continuous(labels = label_comma())
 ```
 
